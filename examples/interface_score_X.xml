@@ -1,0 +1,13 @@
+<ROSETTASCRIPTS>
+  <SCOREFXNS>
+    <ScoreFunction name="ref15" weights="ref2015"/>
+  </SCOREFXNS>
+  <MOVERS>
+    <!-- Change X if the ligand uses a different PDB chain ID. -->
+    <InterfaceScoreCalculator name="ligand_interface" chains="X" scorefxn="ref15"/>
+  </MOVERS>
+  <PROTOCOLS>
+    <Add mover="ligand_interface"/>
+  </PROTOCOLS>
+  <OUTPUT scorefxn="ref15"/>
+</ROSETTASCRIPTS>

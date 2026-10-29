@@ -1,0 +1,16 @@
+[
+  {
+    "bgn": {"auth_asym_id": "H", "auth_seq_id": 31, "pdbx_PDB_ins_code": " ", "label_comp_id": "TYR"},
+    "end": {"auth_asym_id": "X", "auth_seq_id": 1, "pdbx_PDB_ins_code": " ", "label_comp_id": "LIG"},
+    "contact": ["hbond", "vdw"],
+    "distance": 3.1,
+    "type": "atom-atom"
+  },
+  {
+    "bgn": {"auth_asym_id": "X", "auth_seq_id": 1, "pdbx_PDB_ins_code": " ", "label_comp_id": "LIG"},
+    "end": {"auth_asym_id": "H", "auth_seq_id": 31, "pdbx_PDB_ins_code": " ", "label_comp_id": "TYR"},
+    "contact": ["FT"],
+    "distance": 4.8,
+    "type": "plane-plane"
+  }
+]

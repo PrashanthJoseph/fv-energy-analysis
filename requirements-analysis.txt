@@ -1,0 +1,4 @@
+# Compatibility entry point; pyproject.toml is the dependency source of truth.
+# Run from the project root: python -m pip install -r requirements-analysis.txt
+# PLIP and PyRosetta are installed separately by scripts/bootstrap_wsl.sh.
+.[analysis,reporting]

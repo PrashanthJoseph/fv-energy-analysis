@@ -1,0 +1,18 @@
+include README.md
+include requirements-analysis.txt
+recursive-include docs *.md
+exclude docs/final_workbook_overview.md
+recursive-include examples *
+include CONTRIBUTING.md
+include THIRD_PARTY_NOTICES.md
+recursive-include tests *.py *.csv *.json *.pdb *.sc
+prune scripts
+include scripts/bootstrap_wsl.sh
+include scripts/install_plip_wsl.sh
+include scripts/prepare_ligand_complexes.py
+include scripts/pdb_to_arpeggio_cif.py
+include scripts/discovery_studio_batch_interactions.pl
+include vendor/flex_ddg/aldeghi_2018/SI_Files/Rosetta/ddG-backrub.xml
+include vendor/flex_ddg/LICENSE
+prune vendor/rosetta_scripts
+global-exclude __pycache__ *.py[cod]

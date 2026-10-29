@@ -1,0 +1,76 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "fv-energy-analysis"
+version = "0.1.0"
+description = "Compare parent and mutant Fv-ligand complexes using antibody numbering, structural RMSDs, Rosetta energies, and Arpeggio contacts."
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = ["numpy>=1.24"]
+
+[project.optional-dependencies]
+antibody = ["abnumber>=0.4.4", "anarcii>=2.0"]
+analysis = [
+  "abnumber>=0.4.4",
+  "anarcii>=2.0",
+  "gemmi>=0.7",
+  "biopython>=1.81",
+  "pdbe-arpeggio>=1.4.4",
+  "rdkit>=2024.3",
+  "lxml>=4.2.1",
+  "openbabel-wheel==3.1.1.23",
+]
+test = ["pytest>=8", "biopython>=1.81"]
+reporting = ["openpyxl>=3.1", "gemmi>=0.7"]
+
+[project.scripts]
+fv-energy = "fv_energy_analysis.cli:main"
+fv-energy-workflow = "fv_energy_analysis.workflow:main"
+fv-energy-batch = "fv_energy_analysis.batch_workflow:main"
+fv-energy-doctor = "fv_energy_analysis.doctor:main"
+fv-flex-ddg = "fv_energy_analysis.flex_ddg:main"
+fv-discovery-studio-batch = "fv_energy_analysis.discovery_studio:main"
+fv-interaction-fingerprints = "fv_energy_analysis.fingerprints:main"
+fv-hcdr3-confidence = "fv_energy_analysis.confidence:main"
+fv-model-scores = "fv_energy_analysis.model_scores:main"
+fv-ligand-parameters = "fv_energy_analysis.ligand_parameters:main"
+fv-energy-rescore = "fv_energy_analysis.rescore_saved:main"
+fv-e2-architecture = "fv_energy_analysis.architecture_batch:main"
+fv-hydrogen-batch = "fv_energy_analysis.hydrogen_batch:main"
+fv-combine-batches = "fv_energy_analysis.combine_batches:main"
+fv-e3-discrimination = "fv_energy_analysis.e3_discrimination:main"
+fv-e3-refresh = "fv_energy_analysis.e3_refresh:main"
+fv-energy-full = "fv_energy_analysis.full_pipeline:main"
+fv-workbook = "fv_energy_analysis.workbook_validation:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+fv_energy_analysis = ["data/*.json"]
+
+[tool.setuptools.data-files]
+"share/fv-energy-analysis/scripts" = [
+  "scripts/prepare_ligand_complexes.py",
+  "scripts/pdb_to_arpeggio_cif.py",
+  "scripts/discovery_studio_batch_interactions.pl",
+]
+"share/fv-energy-analysis/docs" = [
+  "THIRD_PARTY_NOTICES.md",
+  "docs/batch_output_columns.md",
+  "docs/interaction_fingerprint_columns.md",
+  "docs/discovery_studio_columns.md",
+  "docs/e2_architecture.md",
+  "docs/e3_discrimination.md",
+  "docs/dependencies.md",
+  "docs/configuration.md",
+]
+"share/fv-energy-analysis/vendor/flex_ddg" = ["vendor/flex_ddg/LICENSE"]
+"share/fv-energy-analysis/vendor/flex_ddg/aldeghi_2018/SI_Files/Rosetta" = [
+  "vendor/flex_ddg/aldeghi_2018/SI_Files/Rosetta/ddG-backrub.xml",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

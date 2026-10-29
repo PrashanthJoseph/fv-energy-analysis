@@ -1,0 +1,61 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+dist/
+build/
+*.egg-info/
+results/
+ABB4/
+abb4_inputs/
+*.log
+
+# Local runtimes, inputs and generated analyses
+.venv*/
+node_modules/
+tmp/
+batch_inputs/
+uni_gbsa/
+/flex_ddg/
+reports/
+WslLogs*
+*.zip
+*.tar.gz
+gmx_MMPBSA.log
+
+# Local launchers/notebooks and diagnostic captures
+/run_*.ipynb
+/run_*.ps1
+/collect-wsl-logs.ps1
+
+# Distribute the reusable pipeline helpers, not historical local experiments.
+/scripts/*
+!/scripts/bootstrap_wsl.sh
+!/scripts/install_plip_wsl.sh
+!/scripts/prepare_ligand_complexes.py
+!/scripts/pdb_to_arpeggio_cif.py
+!/scripts/discovery_studio_batch_interactions.pl
+
+# Licensed Rosetta helpers are supplied by the user's installation.
+vendor/rosetta_scripts/
+
+# Retain only the attributed runtime Flex ddG protocol, not its benchmark data.
+/vendor/flex_ddg/*.original.py
+/vendor/flex_ddg/*.original.xml
+/vendor/flex_ddg/aldeghi_2018/*
+!/vendor/flex_ddg/aldeghi_2018/SI_Files/
+/vendor/flex_ddg/aldeghi_2018/SI_Files/*
+!/vendor/flex_ddg/aldeghi_2018/SI_Files/Rosetta/
+/vendor/flex_ddg/aldeghi_2018/SI_Files/Rosetta/*
+!/vendor/flex_ddg/aldeghi_2018/SI_Files/Rosetta/ddG-backrub.xml
+/calibration/
+/docs/final_workbook_overview.md
+
+# Credentials and local editor settings
+.env
+.env.*
+!.env.example
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

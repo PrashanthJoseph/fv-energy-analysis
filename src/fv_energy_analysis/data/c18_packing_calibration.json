@@ -1,0 +1,35 @@
+{
+  "schema": 1,
+  "source_calibration_sha256": "3c16c3b2d45977305763dd8aab6924250356a6d1c18c00ebec5e8878ef158017",
+  "protocol": "ds_c18_singleton_hydrophobic_presence_v1",
+  "reference_paper": "Nahoum et al. (2003), doi:10.1096/fj.02-0524fje",
+  "published_concept": "At least one hydrophobic residue contacts C18 in the discussed antibody complexes",
+  "published_concept_location": "PDF page 5; figures 3 and 4",
+  "production_rule": {
+    "interaction_types": ["alkyl", "pi_alkyl"],
+    "ligand_endpoint": "singleton_mapped_C18",
+    "minimum_unique_residues": 1,
+    "maximum_atom_distance_A": null,
+    "distance_policy": "Native DS classification only; actual atom distances are diagnostics",
+    "hydrogen_policy": "Explicit hydrogens required for comparable DS methyl typing; no H ensemble calibration"
+  },
+  "reference_copies": 16,
+  "families": 7,
+  "singleton_DS_presence_pass": 16,
+  "singleton_count_min": 1,
+  "singleton_count_max": 4,
+  "controls_remaining_pass": 0,
+  "two_residue_rule_pass": 15,
+  "two_residue_rule_missed_reference": "1JNN 17E12E5 (one DS partner: H35 PHE)",
+  "coordinate_mapping": "Reference C18 bonded to C13; production E2L file C10 bonded to C16",
+  "reference_preparation": "DS AddHydrogenAtoms(allHydrogenAtoms,True); all heavy identities and coordinates unchanged; monitor AddHydrogens=False",
+  "native_distance_warning": "DS group distances are not substituted for C18-to-protein-atom distances",
+  "limitations": [
+    "Concept-informed native DS presence, not a published DS numerical cutoff",
+    "Positive-reference calibration and synthetic deletion controls, not independently validated selectivity or affinity prediction",
+    "Copies of one crystal system are not independent families",
+    "DS does not reproduce every paper-named contact (e.g. HSD1 Val143 and 17E12E5 Glu99)",
+    "Requiring the training-set minimum count fails held-out 17E12E5; one partner is the paper-informed operational choice",
+    "Does not measure SASA, percentage burial or E2-versus-E3 discrimination"
+  ]
+}
