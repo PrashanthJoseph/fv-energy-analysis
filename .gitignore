@@ -39,15 +39,8 @@ gmx_MMPBSA.log
 # Licensed Rosetta helpers are supplied by the user's installation.
 vendor/rosetta_scripts/
 
-# Retain only the attributed runtime Flex ddG protocol, not its benchmark data.
-/vendor/flex_ddg/*.original.py
-/vendor/flex_ddg/*.original.xml
-/vendor/flex_ddg/aldeghi_2018/*
-!/vendor/flex_ddg/aldeghi_2018/SI_Files/
-/vendor/flex_ddg/aldeghi_2018/SI_Files/*
-!/vendor/flex_ddg/aldeghi_2018/SI_Files/Rosetta/
-/vendor/flex_ddg/aldeghi_2018/SI_Files/Rosetta/*
-!/vendor/flex_ddg/aldeghi_2018/SI_Files/Rosetta/ddG-backrub.xml
+# Separate local workflows and their historical data are not packaged.
+/vendor/flex_ddg/
 /calibration/
 /docs/final_workbook_overview.md
 

@@ -3,19 +3,6 @@
 The project does not bundle the scientific applications installed by its setup
 scripts. Installing this project does not replace those applications' licenses.
 
-## Bundled Flex ddG protocol
-
-The retained Flex ddG protocol is
-`vendor/flex_ddg/aldeghi_2018/SI_Files/Rosetta/ddG-backrub.xml`.
-The accompanying MIT notice is preserved verbatim in
-`vendor/flex_ddg/LICENSE`, including its 2018 Kyle Barlow copyright notice.
-The protocol's scientific references and adaptation are documented in
-[docs/flex_ddg.md](docs/flex_ddg.md).
-
-Historical benchmark structures, archives, and local experiments are not part
-of the reusable package. The source and wheel include the retained protocol
-and its accompanying notice.
-
 ## Separately installed scientific tools
 
 PyRosetta/Rosetta and BIOVIA Discovery Studio must be obtained and used under

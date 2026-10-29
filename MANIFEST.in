@@ -12,7 +12,5 @@ include scripts/install_plip_wsl.sh
 include scripts/prepare_ligand_complexes.py
 include scripts/pdb_to_arpeggio_cif.py
 include scripts/discovery_studio_batch_interactions.pl
-include vendor/flex_ddg/aldeghi_2018/SI_Files/Rosetta/ddG-backrub.xml
-include vendor/flex_ddg/LICENSE
-prune vendor/rosetta_scripts
+prune vendor
 global-exclude __pycache__ *.py[cod]

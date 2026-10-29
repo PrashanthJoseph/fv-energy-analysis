@@ -80,14 +80,6 @@ and candidates before all analyses. Use `false` to analyze supplied coordinates
 directly, including already optimized PDBs. Changing this setting requires a new
 `run_root`. Set `resume` to true to reuse a compatible completed test.
 
-## Flex ddG for selectable Fv–estradiol mutations
-
-The optional `fv-flex-ddg` module accepts mutations such as `{"H": "E99F"}`
-or a combined mutant such as `{"H": ["E99F", "R100D"]}` using input PDB
-numbering. It requires an installed PyRosetta environment. See
-[the setup and usage guide](docs/flex_ddg.md) for commands, settings and
-interpretation.
-
 ## Individual scientific workflow
 
 Run the individual scientific comparison inside the activated WSL environment. This

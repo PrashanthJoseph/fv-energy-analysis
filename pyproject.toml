@@ -30,7 +30,6 @@ fv-energy = "fv_energy_analysis.cli:main"
 fv-energy-workflow = "fv_energy_analysis.workflow:main"
 fv-energy-batch = "fv_energy_analysis.batch_workflow:main"
 fv-energy-doctor = "fv_energy_analysis.doctor:main"
-fv-flex-ddg = "fv_energy_analysis.flex_ddg:main"
 fv-discovery-studio-batch = "fv_energy_analysis.discovery_studio:main"
 fv-interaction-fingerprints = "fv_energy_analysis.fingerprints:main"
 fv-hcdr3-confidence = "fv_energy_analysis.confidence:main"
@@ -66,10 +65,6 @@ fv_energy_analysis = ["data/*.json"]
   "docs/e3_discrimination.md",
   "docs/dependencies.md",
   "docs/configuration.md",
-]
-"share/fv-energy-analysis/vendor/flex_ddg" = ["vendor/flex_ddg/LICENSE"]
-"share/fv-energy-analysis/vendor/flex_ddg/aldeghi_2018/SI_Files/Rosetta" = [
-  "vendor/flex_ddg/aldeghi_2018/SI_Files/Rosetta/ddG-backrub.xml",
 ]
 
 [tool.pytest.ini_options]

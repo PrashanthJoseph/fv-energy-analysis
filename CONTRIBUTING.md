@@ -40,16 +40,16 @@ CI builds the source distribution and wheel, then runs the tests using the
 installed wheel from a directory outside the original checkout. Tests must
 import packaged modules; never import ignored files under `tmp`.
 
-Runtime scripts, report definitions and the existing Flex ddG protocol are
-included in the wheel. Data and run outputs, local environments, diagnostic
+Runtime scripts and report definitions are included in the wheel.
+Data and run outputs, local environments, diagnostic
 logs and licensed Rosetta utilities are excluded. Install Rosetta/PyRosetta
 separately according to their terms. For new ligand parameters, provide
 `--molfile-to-params PATH` or set `FV_MOLFILE_TO_PARAMS`; existing ligand
 parameters can be supplied directly.
 
 The owner has left the original project license undecided. Do not add an
-open-source license without that decision. Preserve the bundled Flex ddG
-license and [third-party notices](THIRD_PARTY_NOTICES.md). PyRosetta and native
+open-source license without that decision. Preserve the
+[third-party notices](THIRD_PARTY_NOTICES.md). PyRosetta and native
 Discovery Studio are external installations and are not bundled. Dependency
 extras, installer behavior and environment snapshots are described in
 [docs/dependencies.md](docs/dependencies.md).

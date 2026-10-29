@@ -16,8 +16,6 @@ class ResourceTests(unittest.TestCase):
             "docs/discovery_studio_columns.md",
             "docs/interaction_fingerprint_columns.md",
             "docs/e2_architecture.md",
-            "vendor/flex_ddg/aldeghi_2018/SI_Files/Rosetta/ddG-backrub.xml",
-            "vendor/flex_ddg/LICENSE",
         ):
             with self.subTest(resource=relative):
                 self.assertTrue(resource_path(relative).is_file())
