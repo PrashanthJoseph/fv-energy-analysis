@@ -67,6 +67,17 @@ fv-workbook /path/to/completed/batch --verify-only
 This validates the saved data and uses Python/openpyxl, with no scientific
 rescoring, Node.js or Codex dependency.
 
+For a two-complex integration check, use
+[the Jupyter notebook](examples/full_pipeline_two_complexes.ipynb). Copy
+`examples/two_complex_settings.example.json` to `two_complex_settings.json`,
+fill in the input and environment paths, and launch the notebook with a Windows
+Python kernel (`pip install notebook ipykernel`). Set `SETTINGS_PATH` in its
+first cell, or the `FV_NOTEBOOK_SETTINGS` environment variable. It clones the
+public repository at a recorded commit, installs its Windows controller, runs
+all analysis sections, and verifies the resulting CSV/XLSX. This example expects
+already hydrogen-optimized inputs and does not repeat OptH. A new output folder
+is used by default; set `resume` to true to reuse a compatible completed test.
+
 ## Flex ddG for selectable Fv–estradiol mutations
 
 The optional `fv-flex-ddg` module accepts mutations such as `{"H": "E99F"}`

@@ -372,6 +372,55 @@ def test_generalized_mode_does_not_claim_an_unrecorded_opth_run(tmp_path):
     assert context["parent_pdb_sha256"]
 
 
+def test_generalized_mode_accepts_worker_nested_weight_identity_without_opth(tmp_path):
+    """The full runner records weights_identity, not a flat weights hash."""
+    source = cohort(tmp_path, "source", [("candidate.pdb", -1)])
+    generalized_scoring(source, "ligand", True, record_opth=False)
+    path = source / "case/workflow_manifest.json"
+    workflow = read(path)
+    protocol = workflow["scoring_protocol"]
+    expected_hash = protocol.pop("weights_sha256")
+    protocol["weights_identity"] = {"weights": "ligand", "legacy_pre_talaris": True,
+                                    "weights_sha256": expected_hash}
+    write_json(path, workflow)
+    result = combine([source], tmp_path / "combined", allow_other_scoring=True)
+    context = read(result.parent / "combined_manifest.json")["scientific_protocol"]
+    assert context["weights_sha256"] == expected_hash
+    assert context["pyrosetta_version"] == "test-build"
+    assert context["opth_provenance"] == "not_recorded"
+
+
+@pytest.mark.parametrize("mismatch", ["weights", "legacy_pre_talaris", "weights_sha256"])
+def test_generalized_mode_rejects_conflicting_nested_weight_identity(tmp_path, mismatch):
+    source = cohort(tmp_path, "source", [("candidate.pdb", -1)])
+    generalized_scoring(source, record_opth=False)
+    path = source / "case/workflow_manifest.json"
+    workflow = read(path)
+    protocol = workflow["scoring_protocol"]
+    identity = {key: protocol[key] for key in ("weights", "legacy_pre_talaris", "weights_sha256")}
+    identity[mismatch] = {"weights": "ligand", "legacy_pre_talaris": True,
+                          "weights_sha256": "different-weight-file"}[mismatch]
+    protocol["weights_identity"] = identity
+    write_json(path, workflow)
+    with pytest.raises(ValueError, match="nested identity differ"):
+        combine([source], tmp_path / "combined", allow_other_scoring=True)
+    assert not (tmp_path / "combined").exists()
+
+
+def test_generalized_mode_does_not_invent_missing_nested_weight_provenance(tmp_path):
+    source = cohort(tmp_path, "source", [("candidate.pdb", -1)])
+    generalized_scoring(source, record_opth=False)
+    path = source / "case/workflow_manifest.json"
+    workflow = read(path)
+    protocol = workflow["scoring_protocol"]
+    protocol.pop("weights_sha256")
+    protocol["weights_identity"] = {"weights": "ref2015", "legacy_pre_talaris": False,
+                                    "weights_sha256": None}
+    write_json(path, workflow)
+    with pytest.raises(ValueError, match="weight hash and PyRosetta version are required"):
+        combine([source], tmp_path / "combined", allow_other_scoring=True)
+
+
 @pytest.mark.parametrize("different_opth", ["weight_set", "unrecorded"])
 def test_generalized_mode_cannot_mix_opth_provenance_across_cohorts(tmp_path, different_opth):
     a = cohort(tmp_path, "a", [("a.pdb", -1)])

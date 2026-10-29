@@ -163,10 +163,23 @@ def _score_context(protocol, preparation, workflow_path):
     weights = protocol.get("weights")
     if not isinstance(weights, str) or not weights.strip():
         raise ValueError(f"Scoring weights are missing: {workflow_path}")
-    legacy = resolve_legacy_pre_talaris(weights, protocol.get("legacy_pre_talaris"))
+    identity = protocol.get("weights_identity", {})
+    if not isinstance(identity, dict):
+        raise ValueError(f"Scoring weights identity is invalid: {workflow_path}")
+    if identity.get("weights", weights) != weights:
+        raise ValueError(f"Scoring weights and nested identity differ: {workflow_path}")
+    declared_legacy = protocol.get("legacy_pre_talaris")
+    nested_legacy = identity.get("legacy_pre_talaris")
+    legacy = resolve_legacy_pre_talaris(
+        weights, declared_legacy if declared_legacy is not None else nested_legacy)
+    if nested_legacy is not None and resolve_legacy_pre_talaris(weights, nested_legacy) != legacy:
+        raise ValueError(f"Scoring legacy setting and nested identity differ: {workflow_path}")
+    declared_hash, nested_hash = protocol.get("weights_sha256"), identity.get("weights_sha256")
+    if declared_hash and nested_hash and declared_hash != nested_hash:
+        raise ValueError(f"Scoring weight hash and nested identity differ: {workflow_path}")
     same_opt = (weights == preparation.get("opth_weights")
                 and legacy == preparation.get("opth_legacy_pre_talaris"))
-    weights_hash = protocol.get("weights_sha256") or (preparation.get("opth_weights_sha256") if same_opt else None)
+    weights_hash = nested_hash or declared_hash or (preparation.get("opth_weights_sha256") if same_opt else None)
     version = protocol.get("pyrosetta_version") or preparation.get("opth_pyrosetta_version")
     if not weights_hash or not version:
         raise ValueError(f"Scoring weight hash and PyRosetta version are required: {workflow_path}")

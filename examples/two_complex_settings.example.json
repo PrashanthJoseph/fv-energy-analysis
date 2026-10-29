@@ -1,0 +1,22 @@
+{
+  "repository": "https://github.com/PrashanthJoseph/fv-energy-analysis",
+  "revision": null,
+  "run_root": "D:/YOUR_PROJECT/two_complex_test",
+  "resume": false,
+  "distro": "Ubuntu-24.04",
+  "wsl_python": "/home/YOUR_USER/venvs/fv-energy/bin/python",
+  "discovery_studio_root": "C:/Program Files/BIOVIA/Discovery Studio 2024",
+  "parent": "D:/YOUR_PROJECT/optimized/parent_m7.pdb",
+  "candidates": [
+    "D:/YOUR_PROJECT/optimized/candidate_1_relaxed.pdb",
+    "D:/YOUR_PROJECT/optimized/candidate_2_relaxed.pdb"
+  ],
+  "params": "D:/YOUR_PROJECT/ligand/E2L.params",
+  "ligand_template_pdb": "D:/YOUR_PROJECT/ligand/E2L_0001.pdb",
+  "candidate_cifs": [
+    "D:/YOUR_PROJECT/cifs/candidate_1.cif",
+    "D:/YOUR_PROJECT/cifs/candidate_2.cif"
+  ],
+  "parent_cif": "D:/YOUR_PROJECT/cifs/parent_m7.cif",
+  "scores_csv": "D:/YOUR_PROJECT/metadata/model_scores.csv"
+}
