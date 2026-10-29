@@ -37,6 +37,14 @@ confidence and external scores are joined to the exact matching model.
 | `hydrogen_legacy_pre_talaris` | Inherits scoring override | Historical energy-method setting for OptH |
 | `hydrogen_seed` | `20261022` | Reproducible OptH seed |
 
+Use `"optimize_hydrogens": true` to optimize the parent and every candidate
+before scoring and interaction detection. All downstream analyses consume the
+saved optimized structures. Use `false` for direct analysis of the supplied
+coordinates, including PDBs optimized earlier. The Jupyter notebook exposes the
+same toggle in `two_complex_settings.json`, with a default of `true`. Changing
+it requires a new output folder (`run_root` in the notebook); completed results
+are not silently reused across these two modes.
+
 Examples are `ligand`, `ref2015`, or `D:/project/custom.wts`. For a custom
 file derived from historical ligand weights, explicitly set
 `legacy_pre_talaris: true`; use `false` for a modern function. Weight files

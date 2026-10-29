@@ -170,6 +170,37 @@ def test_config_requires_no_node_or_temporary_exporter_and_defaults_to_opth(tmp_
     assert not {"node", "export_builder", "marker_script"} & config.keys()
 
 
+def test_explicit_opth_false_does_not_create_an_optimization_output(tmp_path):
+    config = controller.read_config(saved_config(tmp_path, optimize_hydrogens=False))
+    assert config["optimize_hydrogens"] is False
+    assert "hydrogen_output" not in config and "hydrogen_parent" not in config
+
+
+@pytest.mark.parametrize("entrypoint", ["run", "main", "preflight"])
+def test_explicit_opth_false_with_output_is_rejected_before_any_work(tmp_path, monkeypatch, entrypoint):
+    opth = tmp_path / "saved_opth"
+    config_path = saved_config(tmp_path, optimize_hydrogens=False, hydrogen_output=str(opth))
+    monkeypatch.setattr(controller.subprocess, "run", lambda *args, **kwargs:
+                        pytest.fail("Contradictory OptH settings must not launch a child stage"))
+    with pytest.raises(ValueError, match="optimize_hydrogens=false conflicts with hydrogen_output"):
+        if entrypoint == "run":
+            controller.run(json.loads(config_path.read_text()))
+        else:
+            controller.main([str(config_path)] + (["--preflight"] if entrypoint == "preflight" else []))
+    assert not (tmp_path / "output").exists()
+    assert not opth.exists()
+
+
+def test_postprocessing_can_validate_saved_opth_output_without_running_it(tmp_path):
+    opth = tmp_path / "saved_opth"
+    config = controller.read_config(saved_config(
+        tmp_path, optimize_hydrogens=False, hydrogen_output=str(opth), postprocessing_only=True))
+    assert config["postprocessing_only"] is True
+    assert config["optimize_hydrogens"] is False
+    assert Path(config["hydrogen_output"]) == opth
+    assert not opth.exists()
+
+
 def test_native_linux_science_uses_configured_python_without_wsl_or_remapping():
     config = command_config(science_backend="native", science_python="/venv/bin/python",
                             parent="/inputs/parent.pdb", input_folder="/inputs", output="/outputs",

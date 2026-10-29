@@ -74,9 +74,11 @@ fill in the input and environment paths, and launch the notebook with a Windows
 Python kernel (`pip install notebook ipykernel`). Set `SETTINGS_PATH` in its
 first cell, or the `FV_NOTEBOOK_SETTINGS` environment variable. It clones the
 public repository at a recorded commit, installs its Windows controller, runs
-all analysis sections, and verifies the resulting CSV/XLSX. This example expects
-already hydrogen-optimized inputs and does not repeat OptH. A new output folder
-is used by default; set `resume` to true to reuse a compatible completed test.
+all analysis sections, and verifies the resulting CSV/XLSX. Its settings expose
+`optimize_hydrogens` (default `true`): one whole-complex OptH pass on the parent
+and candidates before all analyses. Use `false` to analyze supplied coordinates
+directly, including already optimized PDBs. Changing this setting requires a new
+`run_root`. Set `resume` to true to reuse a compatible completed test.
 
 ## Flex ddG for selectable Fv–estradiol mutations
 

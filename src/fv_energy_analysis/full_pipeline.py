@@ -45,6 +45,16 @@ def configure_workspace_imports(config):
         sys.path.insert(0, source)
 
 
+def validate_hydrogen_mode(config):
+    """An output path must not override an explicit request to skip OptH."""
+    if (config.get("optimize_hydrogens") is False and config.get("hydrogen_output")
+            and not config.get("postprocessing_only")):
+        raise ValueError(
+            "optimize_hydrogens=false conflicts with hydrogen_output for a scientific run. "
+            "Remove hydrogen_output to skip OptH, or enable optimize_hydrogens. "
+            "A saved hydrogen_output may be supplied with postprocessing_only=true.")
+
+
 def wsl_path(value):
     value = str(value)
     if value.startswith("/"):
@@ -59,6 +69,7 @@ def read_config(config_path):
     config_path = Path(config_path).resolve()
     from .pipeline_options import normalize_options
     config = normalize_options(json.loads(config_path.read_text(encoding="utf-8-sig")))
+    validate_hydrogen_mode(config)
     def resolved(value):
         path = Path(value).expanduser()
         return (path if path.is_absolute() else config_path.parent / path).resolve()
@@ -532,6 +543,7 @@ def initialize_rejected_cohort(config, hydrogen):
 
 
 def run(config):
+    validate_hydrogen_mode(config)
     configure_workspace_imports(config)
     output = Path(config["output"])
     options = scientific_options(config)
